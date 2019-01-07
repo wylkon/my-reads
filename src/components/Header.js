@@ -1,17 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Header = () => {
-  return (
-    <StyledHeader>
-      <div className="grid-container">
-        <h1>
-          <box-icon name="book-open" type="solid" size="md" /> My Reads
-        </h1>
-      </div>
-    </StyledHeader>
-  );
-};
+const Header = () => (
+  <StyledHeader>
+    <div className="grid-container">
+      <h1>
+        <box-icon name="book-open" type="solid" size="md" /> My Reads
+      </h1>
+    </div>
+  </StyledHeader>
+);
 
 const StyledHeader = styled.header`
   padding: 24px;
