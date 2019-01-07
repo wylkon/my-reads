@@ -18,10 +18,8 @@ class BooksApp extends React.Component {
       <main className="app">
         <GlobalStyle />
         <Header />
-        <div className="">
-          <Route exact path="/" component={Home} />
-          <Route path="/search" component={Search} />
-        </div>
+        <Route exact path="/" component={Home} />
+        <Route path="/search" component={Search} />
         <AddNewBook />
       </main>
     );
