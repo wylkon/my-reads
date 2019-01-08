@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Authors = ({ authors }) => (
-  <div className="book-authors">
+  <p className="book-authors">
     {authors.map((author, index) =>
       authors.length === index + 1 ? (
         <span key={author}>{author}</span>
@@ -10,7 +10,7 @@ const Authors = ({ authors }) => (
         <span key={author}>{`${author}, `}</span>
       )
     )}
-  </div>
+  </p>
 );
 
 Authors.propTypes = {

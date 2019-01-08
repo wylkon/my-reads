@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Bookshelf from './Bookshelf';
-import { getAll } from '../utils/BooksAPI';
+import { getAll, update } from '../utils/BooksAPI';
 import ErrorHandler from './ErrorHandler';
 
 class Library extends Component {
@@ -15,6 +15,8 @@ class Library extends Component {
 
     this.getBooks = this.getBooks.bind(this);
     this.startLoading = this.startLoading.bind(this);
+    this.moveBooks = this.moveBooks.bind(this);
+    this.updateBooksState = this.updateBooksState.bind(this);
   }
 
   componentDidMount() {
@@ -26,9 +28,9 @@ class Library extends Component {
     this.startLoading();
 
     getAll()
-      .then(sucess => {
+      .then(success => {
         this.setState({
-          books: sucess,
+          books: success,
           loading: false
         });
       })
@@ -46,6 +48,20 @@ class Library extends Component {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  moveBooks({ book, shelf }) {
+    update(book, shelf).then(() => {
+      this.updateBooksState(book.id, shelf);
+    });
+  }
+
+  updateBooksState(id, shelf) {
+    const { books } = this.state;
+    this.setState({
+      books: books.map(book => (book.id === id ? { ...book, shelf } : book))
+    });
+  }
+
   render() {
     const { books, error, loading } = this.state;
 
@@ -59,9 +75,9 @@ class Library extends Component {
 
     return books.length ? (
       <div>
-        <Bookshelf type="currentlyReading" books={books} />
-        <Bookshelf type="wantToRead" books={books} />
-        <Bookshelf type="read" books={books} />
+        <Bookshelf type="currentlyReading" books={books} moveBooks={this.moveBooks} />
+        <Bookshelf type="wantToRead" books={books} moveBooks={this.moveBooks} />
+        <Bookshelf type="read" books={books} moveBooks={this.moveBooks} />
       </div>
     ) : null;
   }

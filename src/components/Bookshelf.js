@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, array } from 'prop-types';
+import { string, array, func } from 'prop-types';
 import styled from 'styled-components';
 import BookList from './BookList';
 import BookShelfTitle from './BookShelfTitle';
@@ -11,12 +11,19 @@ class Bookshelf extends Component {
     this.state = {
       categoredBooks: []
     };
+
+    this.updateState = this.updateState.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      categoredBooks: this.getFilteredBooks()
-    });
+    this.updateState();
+  }
+
+  componentDidUpdate(previousProps) {
+    const { books } = this.props;
+    if (previousProps.books !== books) {
+      this.updateState();
+    }
   }
 
   getFilteredBooks() {
@@ -25,16 +32,22 @@ class Bookshelf extends Component {
     return books.filter(item => item.shelf === type);
   }
 
+  updateState() {
+    this.setState({
+      categoredBooks: this.getFilteredBooks()
+    });
+  }
+
   render() {
     const { categoredBooks } = this.state;
-    const { type } = this.props;
+    const { type, moveBooks } = this.props;
 
     return (
       <StyledBookshelf>
         <div className="grid-container">
           <BookShelfTitle total={categoredBooks.length} type={type} />
           <div className="bookshelf-books">
-            <BookList books={categoredBooks} />
+            <BookList books={categoredBooks} moveBooks={moveBooks} />
           </div>
         </div>
       </StyledBookshelf>
@@ -43,7 +56,11 @@ class Bookshelf extends Component {
 }
 
 const StyledBookshelf = styled.div`
-  padding: 24px;
+  padding: 24px 0;
+
+  .bookshelf-books {
+    width: 100%;
+  }
 
   h2 {
     border-bottom: 1px solid ${props => props.theme.lightGray};
@@ -66,7 +83,8 @@ const StyledBookshelf = styled.div`
 
 Bookshelf.propTypes = {
   type: string.isRequired,
-  books: array.isRequired
+  books: array.isRequired,
+  moveBooks: func.isRequired
 };
 
 export default Bookshelf;

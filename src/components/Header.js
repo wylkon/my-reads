@@ -12,7 +12,7 @@ const Header = () => (
 );
 
 const StyledHeader = styled.header`
-  padding: 24px;
+  padding: 24px 0;
   border-bottom: 1px solid ${props => props.theme.lightGray};
 
   h1 {

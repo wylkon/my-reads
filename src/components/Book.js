@@ -1,37 +1,60 @@
 import React from 'react';
-import { object } from 'prop-types';
+import { object, func } from 'prop-types';
+import styled from 'styled-components';
 import Authors from './Authors';
+import SelectShelf from './SelectShelf';
 
-const Book = ({ book }) => (
-  <div className="book">
+const Book = ({ book, moveBooks }) => (
+  <StyledBook className="book">
     <div className="book-top">
-      <div
-        className="book-cover"
-        style={{
-          width: 128,
-          height: 188,
-          backgroundImage: `url(${book.imageLinks.thumbnail})`
-        }}
-      />
+      <Cover className="book-cover" thumb={book.imageLinks.smallThumbnail} />
       <div className="book-shelf-changer">
-        <select>
-          <option value="move" disabled>
-            Move to...
-          </option>
-          <option value="currentlyReading">Currently Reading</option>
-          <option value="wantToRead">Want to Read</option>
-          <option value="read">Read</option>
-          <option value="none">None</option>
-        </select>
+        <SelectShelf category={book.shelf} moveBooks={moveBooks} id={book.id} />
       </div>
     </div>
-    <div className="book-title">{book.title}</div>
+    <h3 className="book-title">{book.title}</h3>
     <Authors authors={book.authors} />
-  </div>
+  </StyledBook>
 );
 
+const StyledBook = styled.div`
+  width: 100%;
+  text-align: center;
+
+  @media (min-width: ${props => props.theme.desktopWidth}) {
+    width: 200px;
+  }
+
+  h3 {
+    font-size: 1.6em;
+  }
+
+  p {
+    font-size: 1.3em;
+  }
+`;
+
+const Cover = styled.div`
+  background: url(${props => props.thumb}) no-repeat;
+  background-size: cover;
+  border-radius: 4px;
+  box-shadow: 0 0 30px ${props => props.theme.purple};
+  display: inline-block;
+  height: 60vw;
+  margin-bottom: 16px;
+  min-height: 170px;
+  min-width: 128px;
+  width: 100%;
+
+  @media (min-width: ${props => props.theme.desktopWidth}) {
+    width: 128px;
+    height: 170px;
+  }
+`;
+
 Book.propTypes = {
-  book: object.isRequired
+  book: object.isRequired,
+  moveBooks: func.isRequired
 };
 
 export default Book;

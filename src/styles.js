@@ -7,7 +7,7 @@ export const theme = {
   green: '#00e0a0',
   lightGreen: '#92efe7',
   pink: '#c149b3',
-  purple: '#25164d',
+  purple: '#25164d50',
 
   // Fifty shades of gray
   darkGray: '#666',
@@ -30,7 +30,7 @@ export const theme = {
   tabletWidth: '768px',
   desktopWidth: '992px',
   largeDesktopWidth: '1280px',
-  xlargeDesktopWidth: '1600px',
+  xlargeDesktopWidth: '1600px'
 };
 
 export const GlobalStyle = createGlobalStyle`
@@ -80,7 +80,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .grid-container {
-    width: 98vw;
+    width: 92vw;
     max-width: ${props => props.theme.largeDesktopWidth};
     margin: 0 auto;
   }
