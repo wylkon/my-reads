@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { string, func } from 'prop-types';
+import { string, func, object } from 'prop-types';
 
 class SelectShelf extends Component {
   constructor() {
     super();
 
     this.state = {
-      selectValue: ''
+      selectValue: 'none'
     };
   }
 
@@ -19,9 +19,9 @@ class SelectShelf extends Component {
   }
 
   handleSelect(shelf) {
-    const { moveBooks, id } = this.props;
+    const { moveBooks, book } = this.props;
 
-    moveBooks({ book: { id }, shelf });
+    moveBooks({ book, shelf });
   }
 
   render() {
@@ -43,10 +43,14 @@ class SelectShelf extends Component {
   }
 }
 
+SelectShelf.defaultProps = {
+  category: 'none'
+};
+
 SelectShelf.propTypes = {
-  category: string.isRequired,
+  category: string,
   moveBooks: func.isRequired,
-  id: string.isRequired
+  book: object.isRequired
 };
 
 export default SelectShelf;
