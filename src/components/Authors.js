@@ -13,8 +13,12 @@ const Authors = ({ authors }) => (
   </p>
 );
 
+Authors.defaultProps = {
+  authors: []
+};
+
 Authors.propTypes = {
-  authors: PropTypes.instanceOf(Array).isRequired
+  authors: PropTypes.array
 };
 
 export default Authors;
