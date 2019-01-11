@@ -15,7 +15,7 @@ const BookList = ({ books, moveBooks }) => (
 
 const StyledList = styled.ol`
   list-style: none;
-  padding: 0;
+  padding: 20px 0;
   margin: 0;
   display: flex;
   flex-wrap: wrap;
