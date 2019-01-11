@@ -4,12 +4,17 @@ import styled from 'styled-components';
 import Authors from './Authors';
 import SelectShelf from './SelectShelf';
 
+const bookCover = '/cover.jpg';
+
 const Book = ({ book, moveBooks }) => (
   <StyledBook className="book">
     <div className="book-top">
-      <Cover className="book-cover" thumb={book.imageLinks.smallThumbnail} />
+      <Cover
+        className="book-cover"
+        thumb={book.imageLinks ? book.imageLinks.smallThumbnail : bookCover}
+      />
       <div className="book-shelf-changer">
-        <SelectShelf category={book.shelf} moveBooks={moveBooks} id={book.id} />
+        <SelectShelf category={book.shelf} moveBooks={moveBooks} book={book} />
       </div>
     </div>
     <h3 className="book-title">{book.title}</h3>
